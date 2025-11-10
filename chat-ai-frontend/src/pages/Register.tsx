@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { api } from "../services/api";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 
 
 const RegisterSchema = z.object({
@@ -10,6 +11,7 @@ const RegisterSchema = z.object({
 });
 
 export default function Register() {
+    const navigate = useNavigate();
     const [form, setForm] = useState({ name: "", email: "", password: "" });
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -25,13 +27,15 @@ export default function Register() {
         
         const parsed = RegisterSchema.safeParse(form);
         if (!parsed.success) {
-            setError(parsed.error.errors[0].message);
+            const firstMsg = parsed.error.issues?.[0]?.message ?? "Invalid Credentials";
+            setError(firstMsg);
             return;
         }
 
         try {
-            await api.post("register", form);
+            await api.post("auth/register", form);
             setSuccess("Successfully registered! Go to login page.");
+            navigate("/login")
             setForm({ name: "", email: "", password: ""});
         } catch (err: any) {
             setError("Error in registering user.");
@@ -50,7 +54,8 @@ export default function Register() {
                 {error && <p className = "text-red-400 text-sm">{error}</p>}
                 {success && <p className = "text-green-400 text-sm">{success}</p>}
 
-            <button type="submit" className = "bg-blue-500 hover:bg-blue-600 w-full py-2 rounded mt-4"> Cadastrar </button>
+            <button type="submit" className = "bg-blue-500 hover:bg-blue-600 w-full py-2 rounded mt-4"> Register </button>
+                    <button type="button" onClick={() => navigate("/login")} className="w-full bg-blue-500 hover:bg-blue-600 p-2 rounded mt-2">Login</button>
 
             </form>
         </div>

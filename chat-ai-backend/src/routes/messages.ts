@@ -4,12 +4,18 @@ import { prisma } from '../lib/prisma'
 import { request } from "http";
 
 const iaResponses = [
-    "Gostaria que eu criasse um texto sobre isso de 40 linhas como se fosse um Aluno de Graduaçã?",
+    "Gostaria que eu criasse um texto sobre isso de 40 linhas como se fosse um Aluno de Graduação?",
     "Obrigado por me corrigir, realmente havia um erro, gostaria que eu corrigisse?",
     "Ainda não tenho certeza se compreendi, poderia me explicar melhor?",
     "É um tema deveras interessante, conte-me um pouco mais...",
     "Não posso responder a essa pergunte infelizmente."
 ];
+
+export type Message = {
+  id: number;
+  sender: "user" | "ai";
+  text: string;
+};
 
 export default async function (fastify: FastifyInstance) {
 
