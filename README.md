@@ -34,6 +34,7 @@ Seu objetivo é oferecer uma experiência de **chat interativo com inteligência
 ---
 
 ## ⚙️ Estrutura do Projeto
+```
 📦 chat-ai/
 ┣ 📂 chat-ai-frontend/
 ┃ ┣ 📜 src/
@@ -52,7 +53,7 @@ Seu objetivo é oferecer uma experiência de **chat interativo com inteligência
 ┃ ┗ 📜 prisma/schema.prisma
 ┣ 📜 README_ORIGINAL.md
 ┗ 📜 README.md
-
+```
 
 ---
 
